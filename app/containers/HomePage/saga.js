@@ -5,6 +5,7 @@ import { /*call,*/ put, takeLatest } from 'redux-saga/effects';
 // import request from 'utils/request';
 import { FETCH_TWEETS } from './constants';
 import { tweetsLoaded } from './action';
+// TODO Bang: The token should not be exposed.
 // import { bearerToken } from './token';
 // import { ViewName } from './types';
 import { movieStarTweets } from './mocks/movieStar';
@@ -28,7 +29,7 @@ import { musicStarTweets } from './mocks/musicStar';
  * Github repos request/response handler
  */
 export function* fetchTweets() {
-  // TODO Bang: Twitter API does not support CORS. Find another way to call API
+  // TODO Bang: Twitter API does not support CORS. For now, I used mock data (Twitter API data called with postman). If I have time, find another way to call the Twitter API
   // const viewName = yield select(makeSelectViewName());
   //   const id = viewName === ViewName.movie ? '75974281' : '106854950';
   //   const requestURL = `https://api.twitter.com/2/users/${id}/tweets`;

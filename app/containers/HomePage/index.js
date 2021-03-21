@@ -27,6 +27,9 @@ export function HomePage({
 }) {
   const history = useHistory();
   const { viewName } = useParams();
+  /* TODO Bang: There's a little bug. The redux store is not updated at first render with this boilerplate custom hook. Visually, everything is functional.
+   * If I have time, I should use the "not reducer hook"
+   */
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
@@ -46,6 +49,7 @@ export function HomePage({
     }
   };
 
+  // TODO Bang: Make a better view for the tweets
   return (
     <>
       <Button onClick={handleOnClick} variant="contained">
