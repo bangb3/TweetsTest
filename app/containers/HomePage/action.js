@@ -1,11 +1,4 @@
-import { CHANGE_VIEWNAME, FETCH_TWEETS, TWEETS_LOADED } from './constants';
-
-export function changeView(viewName) {
-  return {
-    type: CHANGE_VIEWNAME,
-    viewName,
-  };
-}
+import { FETCH_TWEETS, TWEETS_LOADED } from './constants';
 
 export function fetchTweets() {
   return {

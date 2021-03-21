@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
-import { changeView, fetchTweets } from './action';
+import { fetchTweets } from './action';
 import { ViewName } from './types';
 import reducer from './reducer';
 import saga from './saga';
@@ -21,16 +21,12 @@ import {
 
 const key = 'home';
 
-export function HomePage({
-  onChangeView,
-  getTweets,
-  movieStarTweets,
-  musicStarTweets,
-}) {
+export function HomePage({ getTweets, movieStarTweets, musicStarTweets }) {
   const history = useHistory();
   const { viewName } = useParams();
-  /* TODO Bang: There's a little bug. The redux store is not updated at first render with this boilerplate custom hook. Visually, everything is functional.
-   * If I have time, I should use the "not reducer hook"
+  /* There's a little bug with useInjectReducer. The redux store (Redux tab in chrome) is not updated at first render with this react-boilerplate custom hook.
+   * After a click to switch the view, the old actions + the new actions will appear and the store data will be correct.
+   * Visually, everything is functional.
    */
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -38,10 +34,6 @@ export function HomePage({
   useEffect(() => {
     getTweets();
   }, []);
-
-  useEffect(() => {
-    onChangeView(viewName);
-  }, [viewName]);
 
   const handleOnClick = () => {
     if (viewName === ViewName.movie) {
@@ -59,45 +51,39 @@ export function HomePage({
     }
   `;
 
+  const getTweetsView = () => {
+    if (movieStarTweets && musicStarTweets) {
+      const tweets =
+        viewName === ViewName.movie ? movieStarTweets : musicStarTweets;
+      return (
+        <>
+          <h1>Lastest tweet of a {viewName} star</h1>
+          <ul>
+            {tweets.map(tweet => (
+              <Tweet key={tweet.id}>
+                <p>
+                  {moment(tweet.created_at).format('LLLL')}: <br /> {tweet.text}
+                </p>
+              </Tweet>
+            ))}
+          </ul>
+        </>
+      );
+    }
+    return null;
+  };
+
   return (
     <>
       <Button onClick={handleOnClick} variant="contained">
         Switch View
       </Button>
-      {movieStarTweets && viewName === ViewName.movie && (
-        <>
-          <h1>Lastest tweet of the movie star Samuel L. Jackson</h1>
-          <ul>
-            {movieStarTweets.map(tweet => (
-              <Tweet key={tweet.id}>
-                <p>
-                  {moment(tweet.created_at).format('LLLL')}: <br /> {tweet.text}
-                </p>
-              </Tweet>
-            ))}
-          </ul>
-        </>
-      )}
-      {musicStarTweets && viewName === ViewName.music && (
-        <>
-          <h1>Lastest tweets of the music star Celine Dion</h1>
-          <ul>
-            {musicStarTweets.map(tweet => (
-              <Tweet key={tweet.id}>
-                <p>
-                  {moment(tweet.created_at).format('LLLL')}: <br /> {tweet.text}
-                </p>
-              </Tweet>
-            ))}
-          </ul>
-        </>
-      )}
+      {getTweetsView()}
     </>
   );
 }
 
 HomePage.propTypes = {
-  onChangeView: PropTypes.func,
   getTweets: PropTypes.func,
   movieStarTweets: PropTypes.array,
   musicStarTweets: PropTypes.array,
@@ -110,7 +96,6 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeView: viewName => dispatch(changeView(viewName)),
     getTweets: () => dispatch(fetchTweets()),
   };
 }

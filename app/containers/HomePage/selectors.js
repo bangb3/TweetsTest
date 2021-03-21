@@ -3,12 +3,6 @@ import { initialState } from './reducer';
 
 const selectHome = state => state.home || initialState;
 
-const makeSelectViewName = () =>
-  createSelector(
-    selectHome,
-    homeState => homeState.viewName,
-  );
-
 const makeSelectMovieStarTweets = () =>
   createSelector(
     selectHome,
@@ -20,9 +14,4 @@ const makeSelectMusicStarTweets = () =>
     selectHome,
     homeState => homeState.musicStarTweets,
   );
-export {
-  selectHome,
-  makeSelectViewName,
-  makeSelectMovieStarTweets,
-  makeSelectMusicStarTweets,
-};
+export { selectHome, makeSelectMovieStarTweets, makeSelectMusicStarTweets };
