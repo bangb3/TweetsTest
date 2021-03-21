@@ -26,4 +26,8 @@
     <li>
         app\containers\HomePage\saga.js
     </li>
+    <li>
+        app\containers\HomePage\types.js
+    </li>
+    
 </ul>
