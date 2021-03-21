@@ -5,6 +5,8 @@ import { compose } from 'redux';
 import { Button } from '@material-ui/core';
 import { useHistory, useParams } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
+import moment from 'moment';
+import styled from 'styled-components';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -49,7 +51,14 @@ export function HomePage({
     }
   };
 
-  // TODO Bang: Make a better view for the tweets
+  const Tweet = styled.li`
+    list-style-type: none;
+    margin-bottom: 30px;
+    p {
+      line-height: 2em;
+    }
+  `;
+
   return (
     <>
       <Button onClick={handleOnClick} variant="contained">
@@ -60,7 +69,11 @@ export function HomePage({
           <h1>Lastest tweet of the movie star Samuel L. Jackson</h1>
           <ul>
             {movieStarTweets.map(tweet => (
-              <li key={tweet.id}>{tweet.text}</li>
+              <Tweet key={tweet.id}>
+                <p>
+                  {moment(tweet.created_at).format('LLLL')}: <br /> {tweet.text}
+                </p>
+              </Tweet>
             ))}
           </ul>
         </>
@@ -70,7 +83,11 @@ export function HomePage({
           <h1>Lastest tweets of the music star Celine Dion</h1>
           <ul>
             {musicStarTweets.map(tweet => (
-              <li key={tweet.id}>{tweet.text}</li>
+              <Tweet key={tweet.id}>
+                <p>
+                  {moment(tweet.created_at).format('LLLL')}: <br /> {tweet.text}
+                </p>
+              </Tweet>
             ))}
           </ul>
         </>
