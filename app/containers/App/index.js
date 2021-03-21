@@ -10,6 +10,7 @@ export default function App() {
   return (
     <div>
       <Switch>
+        <Route exact path="/" component={HomePage} />
         <Route exact path="/:viewName" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>

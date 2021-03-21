@@ -52,7 +52,11 @@ export function HomePage({ getTweets, movieStarTweets, musicStarTweets }) {
   `;
 
   const getTweetsView = () => {
-    if (movieStarTweets && musicStarTweets) {
+    if (
+      movieStarTweets &&
+      musicStarTweets &&
+      (viewName === ViewName.movie || viewName === ViewName.music)
+    ) {
       const tweets =
         viewName === ViewName.movie ? movieStarTweets : musicStarTweets;
       return (
