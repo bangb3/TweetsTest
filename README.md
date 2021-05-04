@@ -29,5 +29,4 @@
     <li>
         <a href="https://github.com/bangb3/TweetsTest/blob/master/app/containers/HomePage/types.js">app\containers\HomePage\types.js</a>
     </li>
-    
 </ul>
