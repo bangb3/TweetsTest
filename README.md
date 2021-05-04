@@ -1,4 +1,4 @@
-<p>Test - I started this project by using the
+<p>Tests - I started this project by using the
     <a href="https://github.com/react-boilerplate/react-boilerplate">
         react boilerplate
     </a>
